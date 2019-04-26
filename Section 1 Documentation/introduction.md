@@ -74,3 +74,14 @@ We used the playground in the last lecture to see and example of TypeScript, but
 
 ## Using TypeScript (Section 1, lecture 5)
 
+Now that we have TypeScript installed, in order for us to use it in ur code we will need to create a '.ts' file, which is the standard TypeScript file. We will create a demo folder with `index.html` and `index.ts`. As we've said before, the browser cannot read '.ts' files as script files, only '.js' files, and so we will link our `<Script>` tag to `index.js`, which doesn't exist yet.
+
+TypeScript also comes with its own compiler, and so any TypeScript code would be easily compiled into vanilla JavaScript, thus enabling us to program an application in TypeScript, with all its features and benefits, and deploy it safely with JavaScript.
+
+In the `index.ts` file, we will paste the same code from the playground. If we leave the object in the argument as it was originally in the playground code, we see that it is being marked in red underline immediately, and the IDE tells us that the argument is not in the type of `string`.
+
+### The TypeScript Compiler
+
+If we want to see the code in the browser, we will need to have a link to a '.js' file, and so we use the built-in TypeScript compiler. To compile the TypeScript code to JavaScript, we open the terminal and type the command `tsc <target .ts file>`, in our case its `tsc index.ts`. If we didn't change the TypeScript error we have before we tried to compile, the compiler will throw us an error, displaying the code errors we have in our '.ts' file, their location and will terminate the process. Only after we dealt with the errors and corrected them, then we could successfully compile the code to JavaScript.
+
+If we now open the file tree, we could see that now we have an `index.js` file along side our `index.ts` file. Now when we open the `index.html` file in the browser, we can see the button, press it and see that we get the desired result.
