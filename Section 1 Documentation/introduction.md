@@ -12,7 +12,7 @@ In the end of the day, the browser can't read TypeScript, and so it will all be 
 
 ## Why TypeScript and How to use it? (Section 1, lecture 3)
 
-### The why 
+### The why
 
 To better understand why we would want to use TypeScript in our JavaScript code, we will go to the official [TypeScript website](typescriptlang.org) and go to the 'Playground' section, there we have 2 text areas, one for input code, that also will hold the TypeScript code, and one for compiled vanilla JavaScript ES5 code, and it is generally a great place to be able to play with TypeScript.
 
@@ -70,4 +70,7 @@ We mix TypeScript in our simple vanilla JavaScript code in order to get the bene
 
 ## Installing TypeScript (Section 1, lecture 4)
 
-We used the playground in the last lecture to see and example of TypeScript, but from now on we will be using TypeScript in our IDE, and so we will have to install TypeScript on our machines.
+We used the playground in the last lecture to see and example of TypeScript, but from now on we will be using TypeScript in our IDE, and so we will have to install TypeScript on our machines. We install TypeScript using the terminal using npm with the command `sudo npm i -g typescript` to install it globally on our machine.
+
+## Using TypeScript (Section 1, lecture 5)
+
