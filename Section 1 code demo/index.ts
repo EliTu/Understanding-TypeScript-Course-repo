@@ -1,6 +1,6 @@
-function Greeter(greeting: string) {
-	this.greeting = greeting;
-}
+const Greeter = (greeting: string) => {
+	greeting = greeting;
+};
 
 Greeter.prototype.greet = function() {
 	return 'Hello, ' + this.greeting;

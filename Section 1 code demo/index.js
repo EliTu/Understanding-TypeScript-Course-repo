@@ -1,7 +1,7 @@
 "use strict";
-function Greeter(greeting) {
-    this.greeting = greeting;
-}
+var Greeter = function (greeting) {
+    greeting = greeting;
+};
 Greeter.prototype.greet = function () {
     return 'Hello, ' + this.greeting;
 };
