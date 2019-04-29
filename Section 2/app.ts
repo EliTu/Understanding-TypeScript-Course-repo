@@ -95,3 +95,16 @@ myRealRealAge = '27';
 // Checking types
 let finalValue = 20;
 if (typeof finalValue === 'number') console.log('final value is a number');
+
+// Never
+const neverReturns = (): never => {
+	throw new Error('Error!');
+};
+
+// Nullable types
+let canBeNull: number | null = 12;
+canBeNull = null;
+let canAlsoBeNull;
+canAlsoBeNull = null;
+let canBeAny = null;
+// canBeAny = 12;

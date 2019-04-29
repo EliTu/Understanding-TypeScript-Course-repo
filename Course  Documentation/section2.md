@@ -386,7 +386,7 @@ myRealRealAge = '27'; // No error
 myRealRealAge = true; // Error
 ```
 
-## Checking for types during runtime
+## Checking for types during runtime (Section 2, lecture 23)
 
 We already observed the `typeof` operator that can help us know what type is a certain variable, and we could use this in our code. For example, we have a variable called `finalValue` and its value is a `string`. Now we would like to check the value, and then perform a certain action if that type checks out. We will write an `if` statement, if the value of `finalValue` is a `number`, then we will log something to the console. We will use the `typeof` operator to check it, and we will see if the type of the variable is equal to 'number'.
 
@@ -401,4 +401,47 @@ We see no output in the console, since the type of `finalValue` is `string`, if 
 
 This is a technique we would like to use in certain situations, like inside functions, especially when we're doing calculations: We would like to output a result only if the type we're getting is a number.
 
-## The "never" Type (TypeScript 2.0)
+## The `never` Type (TypeScript 2.0)(Section 2, lecture 24)
+
+TypeScript 2.0 introduced us some new things we can use, such as the `never` type. Like the name suggests, we will assign in when we expect something NEVER to happen. For example, we have the function `neverReturns`, which will simply `throw` an error, but it won't return anything. It won't be `void`, since `void` still returns something, like a `console.log`, but this function simply gives us an error, so it simply will never `return` anything.
+
+```ts
+const neverReturns = (): never => {
+	throw new Error('Error!');
+};
+```
+
+This is something we would probably use rather seldom, but it can be used in functions or parts of our code when we know that some parts won't be reached.
+
+## Nullable Types (TypeScript 2.0)(Section 2, lecture 25)
+
+One another addition to TypeScript 2.0 are non-nullable types, meaning we shouldn't be able to assign `null` to any variable, unless we're explicitly stating so. For example, we can set a new variable named `canBeNull` and give it a value of 12, this will infer it to a number, but in the next step we can set it to `null`, meaning we want to 'clear' this value. If we initiate a new variable, `canAlsoBeNull`, but won't assign it any value, it will be inferred to `any`, as we learned before, but it will also take the value of `undefined`, this is true in JavaScript and TYpeScript, and we can assign `null` to them afterwards.
+
+```ts
+let canBeNull = 12;
+canBeNull = null;
+let canAlsoBeNull;
+canAlsoBeNull = null;
+```
+
+This is by default allowed, but the issue with that is that it can lead to some problems, because we might have `null` in places we don't need it to be, or if we try to access a property if an object, if its not there and its `null`, we will run into problems without even knowing.
+
+With TypeScript 2.0 we could be explicit about which variables could be `null` and which should never be `null`. We can 'force' this behavior by going to the `tsconfig.json` file and setting `strictNullChecks` to `true`. By default it is set to `false`, and so the compiler accepts `null` and is vulnerable to problems. After we set it to `true`, the code we wrote above will throw us errors, saying that the variables can't be assigned to `null`, this way we're ensuring that we're not assigning `null` accidentally in our code anywhere and that we have truthy values instead.
+
+If we want this check in our compiler but would still want to purposely assign `null` to a specific variable, we could simply use union types, and then the compiler will approve it, since that variable will become 'nullable', or can be set to null.
+
+```ts
+let canBeNull: number | null = 12;
+canBeNull = null; // No error
+let canAlsoBeNull;
+canAlsoBeNull = null;
+```
+
+Another thing to be aware of, is if we initiate a variable with the type of `null`, then the compiler will assume it to be the type of `null`, and not `any`. And so if we will try to mutate it late, TypeScript will infer it to `null` and throw an error.
+
+```ts
+let canBeAny = null;
+canBeAny = 12; // Error, can't assign to type of `null`.
+```
+
+## Module Exercise: Problem (Section 2, lecture 26)

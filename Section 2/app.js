@@ -75,3 +75,14 @@ myRealRealAge = '27';
 var finalValue = 20;
 if (typeof finalValue === 'number')
     console.log('final value is a number');
+// Never
+var neverReturns = function () {
+    throw new Error('Error!');
+};
+// Nullable types
+var canBeNull = 12;
+canBeNull = null;
+var canAlsoBeNull;
+canAlsoBeNull = null;
+var canBeAny = null;
+// canBeAny = 12;
