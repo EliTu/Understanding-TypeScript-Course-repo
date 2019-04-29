@@ -445,3 +445,50 @@ canBeAny = 12; // Error, can't assign to type of `null`.
 ```
 
 ## Module Exercise: Problem (Section 2, lecture 26)
+
+<!-- Add TypeScript to the following JavaScript code, be explicit as possible regarding types -->
+
+```js
+let bankAccount = {
+	money: 2000,
+	deposit(value) {
+		this.money += value;
+	},
+};
+
+let myself = {
+	name: 'Max',
+	bankAccount: bankAccount,
+	hobbies: ['Sports', 'Cooking'],
+};
+
+myself.bankAccount.deposit(3000);
+
+console.log(myself);
+```
+
+<!-- My answer -->
+
+```ts
+type Bank = { money: number; deposit: (val: number) => void };
+type Person = { name: string; bankAccount: Bank; hobbies: string[] };
+
+let bankAccount: Bank = {
+	money: 2000,
+	deposit(value: number): void {
+		this.money += value;
+	},
+};
+
+let myself: Person = {
+	name: 'Max',
+	bankAccount: bankAccount,
+	hobbies: ['Sports', 'Cooking'],
+};
+
+myself.bankAccount.deposit(3000);
+
+console.log(myself);
+```
+
+My code matches Max's solution. **MODULE COMPLETE!**

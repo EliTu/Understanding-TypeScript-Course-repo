@@ -108,3 +108,25 @@ let canAlsoBeNull;
 canAlsoBeNull = null;
 let canBeAny = null;
 // canBeAny = 12;
+
+// MODULE EXERCISE
+
+type Bank = { money: number; deposit: (val: number) => void };
+type Person = { name: string; bankAccount: Bank; hobbies: string[] };
+
+let bankAccount: Bank = {
+	money: 2000,
+	deposit(value: number): void {
+		this.money += value;
+	},
+};
+
+let myself: Person = {
+	name: 'Max',
+	bankAccount: bankAccount,
+	hobbies: ['Sports', 'Cooking'],
+};
+
+myself.bankAccount.deposit(3000);
+
+console.log(myself);
