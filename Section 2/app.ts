@@ -48,3 +48,12 @@ sayHello();
 // Argument types
 const multiply = (a: number, b: number): number => a * b;
 console.log(multiply(10, 10));
+
+// function types
+let myMultiply: (val1: number, val2: number) => number;
+// myMultiply = sayHello;
+// myMultiply();
+myMultiply = multiply;
+console.log(myMultiply(5, 10));
+
+// Objects and Types

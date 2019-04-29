@@ -39,3 +39,10 @@ sayHello();
 // Argument types
 var multiply = function (a, b) { return a * b; };
 console.log(multiply(10, 10));
+// function types
+var myMultiply;
+// myMultiply = sayHello;
+// myMultiply();
+myMultiply = multiply;
+console.log(myMultiply(5, 10));
+// Objects and Types

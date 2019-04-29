@@ -217,6 +217,36 @@ const multiply = (a: number, b: number): number => a * b;
 console.log(multiply(10, 10));
 ```
 
-Now if we will try to pass a `string`, or any other type which is not a `number`, we will encounter an error
+Now if we will try to pass a `string`, or any other type which is not a `number`, we will encounter an error.
 
-## Functions as Types
+## Functions as Types (Section 2, lecture 18)
+
+Functions are types on their own in TypeScript, and so we're not only get to specify the argument types and the `return` value type, but we can also specify the type for a function and what kind of a function that is.
+
+We'll create a new variable named `myMultiply`, which later will take the `multiply` function we set earlier. But we will first try to assign different functions to it and log the results in the console.
+
+```ts
+let myMultiply;
+myMultiply = sayHello;
+myMultiply();
+myMultiply = multiply;
+console.log(myMultiply(5, 10));
+```
+
+What will be the result of this? We compile the code and look at the console, we can see that "Hello" and 10 being loged to the console. We can see that this is a wrong and inconsistent behavior, we shouldn't be able to assign `myMultiply` to different functions and then be able to call them. It would be good to be able to specify to this function what kind of functions we expect it to be, in which format and type.
+
+To get the idea of how we could tell, let's look at the 2 functions: the `sayHello` function is has no parameters and returns `void` type, while the `multiply` function takes 2 arguments, both are `number` type, and returns a `number` type value.
+
+To ensure that `myMultiply` could only be set to functions which are of the format of `multiply` we could set its function type. We pass ':', and then use () and =>, consistant with the ES6 syntax, and then pass what the function should `return`. How will it look in our case? `multiply: (val1: number, val2: number) => number;`. This way we specify that `myMultiply` is a `function` type, and that we expect it to take a function that takes 2 arguments, both are numbers and it will `return` a number. Once we do this, the `myMultiply = sayHello;` will be marked in with a warning, and we won't be able to compile the code.
+
+```ts
+let myMultiply: (val1: number, val2: number) => number;
+myMultiply = sayHello; // Error
+myMultiply(); // Error
+myMultiply = multiply; // No error
+console.log(myMultiply(5, 10)); // 50
+```
+
+Also we can see, that while we pass the `function` type specifications, we could set the arguments names as we'd like, we don't have to specify the exact name of the parameters or arguments being passed, what matters is their type.
+
+## Objects and Types (Section 2, lecture 19)
