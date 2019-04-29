@@ -46,3 +46,18 @@ var myMultiply;
 myMultiply = multiply;
 console.log(myMultiply(5, 10));
 // Objects
+var userData = {
+    name: 'Eliad',
+    age: 27,
+};
+// userData = {
+//     a: 'Hello',
+//     b: 22
+// };
+// Complex object
+var complex = {
+    data: [10, 20, 30],
+    output: function (all) {
+        return this.data;
+    },
+};

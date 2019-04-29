@@ -57,3 +57,20 @@ myMultiply = multiply;
 console.log(myMultiply(5, 10));
 
 // Objects
+let userData: { name: string; age: number } = {
+	name: 'Eliad',
+	age: 27,
+};
+// userData = {
+//     a: 'Hello',
+//     b: 22
+// };
+
+// Complex object
+
+let complex: { data: number[]; output: (all: boolean) => number[] } = {
+	data: [10, 20, 30],
+	output: function(all: boolean): number[] {
+		return this.data;
+	},
+};

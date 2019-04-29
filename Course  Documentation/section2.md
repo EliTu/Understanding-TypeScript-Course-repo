@@ -301,3 +301,35 @@ let userData: { name: string; age: number } = {
 ```
 
 Now its important to make the distinction between the `object` type and the object body itself, since they look kind of the same. We need to pay attention to the colon, and note that the real object starts to the right of the assign operator '='. They both have key-value pairs, but we should be able to make the distinction with the TypeScript syntax.
+
+## Example: Putting it all together in a complex object (Section 2, lecture 20)
+
+We have the following object:
+
+```ts
+let complex: { data: number[]; output: (all: boolean) => number[] } = {
+	data: [10, 20, 30],
+	output: function(all: boolean): number[] {
+		return this.data;
+	},
+};
+```
+
+At first sight, this looks very complex and intimidating, but as we break it apart we could see that its actually very logical and contains most of the types we already saw.
+
+`complex` is an object that takes the property of `data`, which is an array of numbers, and the property of `output`, which is a function that has one argument, named `all` but its name does not matter, and it takes a type of `boolean`, and expect it to return an array of numbers.
+
+```ts
+let complex: { data: number[]; output: (all: boolean) => number[] } = {};
+```
+
+Right after we the '=' and the object body, which holds the property of `data`, which is an array of numbers, and `output` which is a function that takes an argument with the type of `boolean` and expects to return an array of `numbers`, which in this case it actually returns the `data` property of the object.
+
+```ts
+	data: [10, 20, 30],
+	output: function(all: boolean): number[] {
+		return this.data;
+	},
+```
+
+## Creating custom Types with Types Aliases(Section 2, lecture 21)
