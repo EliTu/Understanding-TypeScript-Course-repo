@@ -166,3 +166,57 @@ console.log(myCar); // {brand: "BMW", series: 3}
 Therefore we should be careful, and actually should be an exception to use `any` as a type. We should always be explicit about our Typing in TypeScript, and use `any` only if we really need the maximum flexibility.
 
 ## Understandong the created JavaScript code (Section 2, lecture 16)
+
+We would like to have a look at the result of the tsc compile result. We could do that easily just by looking at the compiled JavaScript file. There we could see that not much changed when it comes to the basic TypeScript types we've input, and that is became JavaScript essentially has no types that can be hard-assigned by code, that's just not how it works. Thus, the role of TypeScript is essentially to warn us during production and compilation time, and not to hard code types into our code, and so its more of a overwatch tool in this sense.
+
+What does have an effect in JavaScript code are, naturally, the enum we've created, since it is in fact hard coded data. It is construceted with an IIFE and a `Color` object, inside we have a mapping that will result in outputing a number instead of a string.
+
+```js
+(function(Color) {
+	Color[(Color['Gray'] = 0)] = 'Gray';
+	Color[(Color['Green'] = 100)] = 'Green';
+	Color[(Color['Blue'] = 101)] = 'Blue';
+})(Color || (Color = {}));
+```
+
+## Using Types in Functions(Arguments & `return` values)(Section 2, lecture 17)
+
+### `return` value types
+
+Functions can take the advantage of types, and utilize them for the arguments and for the returned value. For example, we have a function `returnMyName` that should return us the `myName` variable we've set earlier. If we log this function to the console, we should see 'Eliad'. We know that this function should give us back a string, and we could them be explicit about it. We could add ':' after the function parentheses and add the type to it. The type we add there will always refer to the type of the returned value, and no to the arguments or anything else.
+
+```ts
+const returnMyName = (): string => myName;
+console.log(returnMyName()); // Eliad
+```
+
+As we might expect, if we will try to return `myAge`, which is a number, we will encounter a type error.
+
+### The `void` type
+
+A special type for `return` values in functions is the `void` type. We will have another function named `sayHello` and all it does is to print "Hello" to the console. This function does not return anything, it has no `return` statement, and we can be explicit about this. We add the type `void`, which means that nothing will be returned. It will give us an error if we do try to use the `return` keyword and try to `return` a value in the code.
+
+```ts
+const sayHello = (): void => console.log('Hello');
+sayHello();
+```
+
+### Types for arguments
+
+Types for arguments allow us to ensure that our functions work correctly. We can be explicit about the types of the arguments we set for our functions, adding another layer of security for our functions ensured output. We have the function `multiply` with 2 values that multiply each other. Then, we add the type `number` for the expected result of the `return`, stating that there should be a `number` output. But then if we will try to call the function with one `number` and a `string` arguments? will the code compile successfully?
+
+```ts
+const multiply = (a, b): number => a * b;
+console.log(multiply(10, 'Eliad'));
+```
+
+The compiler will indeed compile, and the result will be `NaN`. We didn't get get any error, since the compiler still expects a number, and a `NaN` value could be converted to a number, but this is faulty. Therefore, we should also pass types for the arguments, to ensure that the arguments we pass will not conflict with the end result type. The types are being passed in the parameters.
+
+```ts
+const multiply = (a: number, b: number): number => a * b;
+console.log(multiply(10, 10));
+```
+
+Now if we will try to pass a `string`, or any other type which is not a `number`, we will encounter an error
+
+## Functions as Types

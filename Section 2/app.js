@@ -30,3 +30,12 @@ var myCar = 'BMW';
 console.log(myCar);
 myCar = { brand: 'BMW', series: 3 };
 console.log(myCar);
+// Functions
+var returnMyName = function () { return myName; };
+console.log(returnMyName());
+// Void
+var sayHello = function () { return console.log('Hello'); };
+sayHello();
+// Argument types
+var multiply = function (a, b) { return a * b; };
+console.log(multiply(10, 10));

@@ -36,3 +36,15 @@ let myCar: any = 'BMW';
 console.log(myCar);
 myCar = { brand: 'BMW', series: 3 };
 console.log(myCar);
+
+// Functions
+const returnMyName = (): string => myName;
+console.log(returnMyName());
+
+// Void
+const sayHello = (): void => console.log('Hello');
+sayHello();
+
+// Argument types
+const multiply = (a: number, b: number): number => a * b;
+console.log(multiply(10, 10));
