@@ -56,4 +56,4 @@ let myMultiply: (val1: number, val2: number) => number;
 myMultiply = multiply;
 console.log(myMultiply(5, 10));
 
-// Objects and Types
+// Objects

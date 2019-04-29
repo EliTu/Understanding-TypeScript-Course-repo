@@ -247,6 +247,57 @@ myMultiply = multiply; // No error
 console.log(myMultiply(5, 10)); // 50
 ```
 
-Also we can see, that while we pass the `function` type specifications, we could set the arguments names as we'd like, we don't have to specify the exact name of the parameters or arguments being passed, what matters is their type.
+Also we can see, that while we pass the `function` type specifications, we could set the arguments names as we'd like, we don't have to specify the exact name of the parameters or arguments being passed, what matters is their type and the order of the parameters.
 
 ## Objects and Types (Section 2, lecture 19)
+
+We'll create a new simple object that holds user data, a name and and age, named `userData`.
+
+```ts
+let userData = {
+	name: 'Eliad',
+	age: 27,
+};
+```
+
+### Objects turned to types
+
+Right here, TypeScript infers the type that `userData` should have, and it infers it to be an object with a property of `name` and the type of `string`, and an `age` property with the type of `number`. If we try to reassign `userData`, lets say to an empty object, we will encounter an error that '{}' is not assignable.
+
+```ts
+let userData = {
+	name: 'Eliad',
+	age: 27,
+};
+userData = {}; // '{}' is not assignable to type {name: string, age: number}.
+```
+
+### Property names are important
+
+Also, we need to note that unlike in the `function` type example, the property names do have importance! So if we go ahead and try to reassign `userData` with an object that holds a `string` and a `number`, but not correspond to the original property names, we will encounter an error.
+
+```ts
+let userData = {
+	name: 'Eliad',
+	age: 27,
+};
+userData = {
+	a: 'Hello',
+	b: 26,
+}; // Error
+```
+
+The types do match between the objects, we have a `string` and a `number`, but the property names do not match. In the function, the order is the important thing, but in object the order is not clear and could be changed behind the scenes, and so what's important are the property names themselves.
+
+### Explicit `object` type
+
+Like in functions, we can also be explicit about the object type, basically creating a blueprint of what the object should look like. Once again, its done with a ':', followed by '{}', and inside the curly braces we specify the property (with the exact property name), and the expected value type.
+
+```ts
+let userData: { name: string; age: number } = {
+	name: 'Eliad',
+	age: 27,
+};
+```
+
+Now its important to make the distinction between the `object` type and the object body itself, since they look kind of the same. We need to pay attention to the colon, and note that the real object starts to the right of the assign operator '='. They both have key-value pairs, but we should be able to make the distinction with the TypeScript syntax.

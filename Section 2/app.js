@@ -45,4 +45,4 @@ var myMultiply;
 // myMultiply();
 myMultiply = multiply;
 console.log(myMultiply(5, 10));
-// Objects and Types
+// Objects
