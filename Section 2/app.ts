@@ -20,3 +20,19 @@ let hobbies: any[] = ['Cooking', 'Sports'];
 // Tuples
 let address: [string, number] = ['Superstreet', 99];
 console.log(address);
+
+// Enums
+enum Color {
+	Gray, // 0
+	Green = 100, // 1
+	Blue, // 2
+}
+
+let myColor: Color = Color.Green;
+console.log(myColor);
+
+// Any
+let myCar: any = 'BMW';
+console.log(myCar);
+myCar = { brand: 'BMW', series: 3 };
+console.log(myCar);

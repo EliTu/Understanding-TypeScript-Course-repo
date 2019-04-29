@@ -1,3 +1,5 @@
+<!-- markdownlint-disable MD010 -->
+
 # Section 2 - Using Types for Better Code
 
 ## Assigning Types Explicitly (Section 2, lecture 11)
@@ -90,3 +92,77 @@ let address: [string, number] = [99, 'Superstreet']; // Type [number, string] is
 Tuples are useful when we have data object or an array that has a one single format or a fixed value, we could use tuples to validate it.
 
 ## Enums (Section 2, lecture 14)
+
+Another new type that was added to TypeScript are enums. Enums is a feature to make numbers more expressive. Lets say we have a few colors, and we want to check in a `switch` statement for a specific color. In the statement we could have strings representing the colors, so we have 'Red', 'Green', 'Blue' etc, but in code that would be a waste of memory space. So what we could do is to have numbers to represent each color. That would be the better way to approach such a scenario, and also have other benefits like avoiding typos etc.
+
+But the problem is that it would make it a bit harder to remember which value stands for which number. In order to make it easier, we can create enums in TypeScript. We do this by first declaring the `enum` keyword and then passing the enum name, followed by curly braces.
+
+```ts
+enum Color {}
+```
+
+This will basically will create a new type that we could use later on. Inside the curly braces we will add values, in our case we add the color strings.
+
+```ts
+enum Color {
+	Gray,
+	Green,
+	Blue,
+}
+```
+
+These values, behind the scenes, stand for integers that will represent them. Now if we will create a new variable, and set it to the type of `Color`, we can use the `Color` enum as a type. Then we can pass on `Color.Green` for example, if we log it to the console we will receive the value of 1. This means that behind the scenes all the enum values are automatically get assigned with numbers, by default starting from 0.
+
+```ts
+enum Color {
+	Gray, // 0
+	Green, // 1
+	Blue, // 2
+}
+
+let myColor: Color = Color.Green;
+console.log(myColor); // 1
+```
+
+At some cases, we would like to override the default enum numerical value, setting the enum values our own numerical value. For example, if we want `Green` to be of a value 100, we could simply use the assign operator and give it a value of 100.
+
+```ts
+enum Color {
+	Gray,
+	Green = 100,
+	Blue,
+}
+
+let myColor: Color = Color.Green;
+console.log(myColor); // 100
+```
+
+But then, what will happen to `Blue`? will it be 2 or 101 ? If we will log `Blue`, it will have the value of 101, essentially continuing incrementing according ot the last set item. So if we want `Blue` to have the value of 2, we will have to manually set it to 2, and then whatever value that comes after `Blue` will be 3, etc.
+
+Enums will allow us to set a more "user-friendly" values that we could be used during coding.
+
+## The "Any" Type (Section 2, lecture 15)
+
+Type `any` is essentially the most flexible type we have in TypeScript and the closest type to the vanilla JavaScript typing behavior, and therefore we should try to avoid using it in our code, since it negates all the benefits of TypeScript.
+
+If we have a variable `myCar` and give it a type of string, but then reassign it with an object that contains the car brand nad series, we will encounter an error, since TypeScript infers type `string` to `myCar` by default, as we've seen before.
+
+```ts
+let myCar = 'BMW';
+console.log(myCar); // BMW
+myCar = { brand: 'BMW', series: 3 }; // ERROR
+console.log(myCar);
+```
+
+We could override this by giving `myCar` a type of `any`, thus making TypeScript accept any kind of type override for the `myCar` variable.
+
+```ts
+let myCar: any = 'BMW';
+console.log(myCar); // BMW
+myCar = { brand: 'BMW', series: 3 };
+console.log(myCar); // {brand: "BMW", series: 3}
+```
+
+Therefore we should be careful, and actually should be an exception to use `any` as a type. We should always be explicit about our Typing in TypeScript, and use `any` only if we really need the maximum flexibility.
+
+## Understandong the created JavaScript code (Section 2, lecture 16)
