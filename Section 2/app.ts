@@ -74,3 +74,24 @@ let complex: { data: number[]; output: (all: boolean) => number[] } = {
 		return this.data;
 	},
 };
+
+// Custom types
+
+type Complex = { data: number[]; output: (all: boolean) => number[] };
+
+let complex2: Complex = {
+	data: [10, 20, 30],
+	output: function(all: boolean): number[] {
+		return this.data;
+	},
+};
+
+// Union types
+
+let myRealRealAge: number | string = 27;
+myRealRealAge = '27';
+// myRealRealAge = [27];
+
+// Checking types
+let finalValue = 20;
+if (typeof finalValue === 'number') console.log('final value is a number');

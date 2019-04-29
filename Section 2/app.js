@@ -61,3 +61,17 @@ var complex = {
         return this.data;
     },
 };
+var complex2 = {
+    data: [10, 20, 30],
+    output: function (all) {
+        return this.data;
+    },
+};
+// Union types
+var myRealRealAge = 27;
+myRealRealAge = '27';
+// myRealRealAge = [27];
+// Checking types
+var finalValue = 20;
+if (typeof finalValue === 'number')
+    console.log('final value is a number');

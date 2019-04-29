@@ -333,3 +333,72 @@ Right after we the '=' and the object body, which holds the property of `data`, 
 ```
 
 ## Creating custom Types with Types Aliases(Section 2, lecture 21)
+
+Complex types, like we saw in the last lecture, could lead us to a bit of an issue. Let's create another object which would be identical to the one from the last lecture, and call it `complex2`. It will have the same type of object as `complex` has, so we could simply copy it to `complex2`.
+
+```ts
+let complex2: { data: number[]; output: (all: boolean) => number[] } = {
+	data: [10, 20, 30],
+	output: function(all: boolean): number[] {
+		return this.data;
+	},
+};
+```
+
+But if we want to change one of the type values in one of the objects, we would probably need to change it in all of the other object types that are copied from one another, then we would have to manually change it in every instance of that type. Instead of doing this repetitive fix, we could avoid it alltogether with type alias, by setting a 'variable' like object that will store the type we set, and then we could reuse it throughout our code.
+
+Type alias is initialized with the keyword `type` followed by a name that will refer to that type. Then we will assign this to the type we would like to use.
+
+```ts
+type Complex = { data: number[]; output: (all: boolean) => number[] };
+```
+
+With this created, we could make it easier and set the `complex2` type to be the type of `Complex`. It will be the same type as before, but now its much more reusable: If we want to change the type, we simply change it one place, if we would like to change one of the values in the type, we could simply do it in the `Complex` type and it will be changed globally.
+
+```ts
+type Complex = { data: number[]; output: (all: boolean) => number[] };
+
+let complex2: Complex = {
+	data: [10, 20, 30],
+	output: function(all: boolean): number[] {
+		return this.data;
+	},
+};
+```
+
+## Allowing multiple types with Union Types (Section 2, lecture 22)
+
+Another important concept about types, that can make our lives a bit easier is the concept of Union Types. Up until now, if we have to be a explicit about the type, it's either `number`, `string`, `boolean` etc, or if we're not sure we can use `any` for flexibility. But as we stated before, we don't want to use `any`, but if we need the in between solution? If we're not sure if the function will return a `string` or a `number`, but certainly not `boolean`? TypeScript got us covered.
+
+We'll write a variable that holds our real age, but it could either be a `number` or a `string`. Up until now, we would've used `any` type to achieve that. But we're certain that its value can't possibly be a `boolean`, but having `any` type will allow that still.
+
+```ts
+let myRealRealAge: any = 27; // No error
+myRealRealAge = '27'; // No error
+myRealRealAge = true; // No error
+```
+
+Instead of doing that, we will use Union Types to state that the variable could be either `string` or `number`. We do that with stating one of the possibilities, and then using a single pipe '|', we state the other. This is a bit similar to the JavaScript || operator. Now if we will pass a `string` or a `number`, the code will compile, but if we will pass a `boolean`, we will receive an error.
+
+```ts
+let myRealRealAge: number | string = 27; // No error
+myRealRealAge = '27'; // No error
+myRealRealAge = true; // Error
+```
+
+## Checking for types during runtime
+
+We already observed the `typeof` operator that can help us know what type is a certain variable, and we could use this in our code. For example, we have a variable called `finalValue` and its value is a `string`. Now we would like to check the value, and then perform a certain action if that type checks out. We will write an `if` statement, if the value of `finalValue` is a `number`, then we will log something to the console. We will use the `typeof` operator to check it, and we will see if the type of the variable is equal to 'number'.
+
+```ts
+let finalValue = 'some string';
+if (typeof finalValue === 'number') console.log('final value is a number');
+```
+
+It is very important to remember that when we're using `typeof` to check equality, we will pass off the type with quotes '', and not by itself like we do in TypeScript.
+
+We see no output in the console, since the type of `finalValue` is `string`, if we change it to a number and recompile, we will see the log in the console.
+
+This is a technique we would like to use in certain situations, like inside functions, especially when we're doing calculations: We would like to output a result only if the type we're getting is a number.
+
+## The "never" Type (TypeScript 2.0)
