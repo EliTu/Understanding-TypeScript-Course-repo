@@ -150,3 +150,126 @@ console.log(hobby1, hobby2); // Sports Coding
 ```
 
 ## Destructuring Objects (Section 4, lecture 50)
+
+Destructuring could also be done with objects. Although traditionally we could extract details from an object in a very straightforward way.
+
+```ts
+const userData = {
+	userName: 'Eliad',
+	age: 27,
+};
+const userName: string = userdata.userName;
+const age: number = useData.age;
+console.log(username, age); // Eliad 27
+```
+
+But the destructuring allows us a more cleaner and shorter syntax to perfrom the same thing. We do that the same way we extract values fom an array, and once again it is important to remember to match the destructured variables with the same name as the keys in the object we're destructuring from, since that is the way for the JavaScript to know how to pair the variables with the keys.
+
+```ts
+const userData = {
+	userName: 'Eliad',
+	age: 27,
+};
+const { username, age } = userData;
+console.log(username, age); // Eliad 27
+```
+
+If we would like to assign a different name to the destructured variables than the keys in the object, we could do this with the ':' notation, and then pass on an alias.
+
+```ts
+const userData = {
+	userName: 'Eliad',
+	age: 27,
+};
+const { username: myUserName, age: myAge } = userData;
+console.log(myUserName, myAge); // Eliad 27
+```
+
+## Template Literals (Section 4, lecture 51)
+
+`Template strings are awesome!`.
+
+## Module Exercise: Problem (Section 4, lecture 52)
+
+Re-write the below Code using the ES6 Features you learned throughout this Module.
+
+```ts
+// Exercise 1 - Maybe use an Arrow Function?
+var double = function(value) {
+	return value * 2;
+};
+console.log(double(10));
+
+// Exercise 2 - If only we could provide some default values...
+var greet = function(name) {
+	if (name === undefined) {
+		name = 'Max';
+	}
+	console.log('Hello, ' + name);
+};
+greet();
+greet('Anna');
+
+// Exercise 3 - Isn't there a shorter way to get all these Values?
+var numbers = [-3, 33, 38, 5];
+console.log(Math.min.apply(Math, numbers));
+
+// Exercise 4 - I have to think about Exercise 3 ...
+var newArray = [55, 20];
+Array.prototype.push.apply(newArray, numbers);
+console.log(newArray);
+
+// Exercise 5 - That's a well-constructed array.
+var testResults = [3.89, 2.99, 1.38];
+var result1 = testResults[0];
+var result2 = testResults[1];
+var result3 = testResults[2];
+console.log(result1, result2, result3);
+
+// Exercise 6 - And a well-constructed object!
+var scientist = { firstName: 'Will', experience: 12 };
+var firstName = scientist.firstName;
+var experience = scientist.experience;
+console.log(firstName, experience);
+```
+
+My Solution:
+
+```ts
+// Exercise 1
+const double: (val1: number) => number = value => value * 2;
+
+console.log(double(10)); // 20
+
+// Exercise 2
+const greet: (val1: string) => void = (name = 'Luke') =>
+	console.log(`Hello, ${name}`);
+
+greet(); // Luke
+greet('Anna'); // Anna
+
+// Exercise 3
+const numbers: number[] = [-3, 33, 38, 5];
+
+console.log(Math.min(...numbers)); // -3
+
+// Exercise 4
+let newArray: number[] = [55, 20];
+newArray = [...newArray, ...numbers];
+console.log(newArray); // [55, 20, -3, 33, 38, 5]
+
+// Exercise 5
+const testResults: number[] = [3.89, 2.99, 1.38];
+const [result1, result2, result3] = testResults;
+console.log(result1, result2, result3); // 3.89, 2.99, 1.38
+
+// Exercise 6
+const scientist: { fistName: string; experience: number } = {
+	firstName: 'Will',
+	experience: 12,
+};
+const { firstName, experience } = scientist;
+console.log(firstName, experience);
+```
+
+**_Finished Module_**
