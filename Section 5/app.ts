@@ -22,3 +22,13 @@ const person = new Person('Yoda', 'yod5');
 console.log(person);
 person.printAge();
 // person.setType('TS!!');
+
+// * Inheritance:
+
+class Eliad extends Person {
+	constructor(userName: string) {
+		super('Eliad', userName);
+	}
+}
+const eliad = new Eliad('eliad');
+console.log(eliad); // Eliad {userName: "eliad", age: 27, name: "Eliad"}

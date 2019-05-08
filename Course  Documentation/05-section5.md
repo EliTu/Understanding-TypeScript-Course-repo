@@ -177,3 +177,39 @@ person.printAge(); // 27, 1991
 ```
 
 ## Inheritance (Section 5, lecture 59)
+
+We can create a class based on another class, or basically a subclass based on a superclass. We could do that with the `extends` keyword. Whatever we pass into the subclass will either be appended as a new property if it is not included in the superclass, or overridden if it is included in the superclass.
+
+```ts
+class Eliad extends Person {
+	name: string = 'Eliad';
+}
+```
+
+In this example, the `name` property of the subclass will override the `name` property in the superclass. When we try to instantiate the `Eliad` class, the IDE will indicate an error, saying it expects 2 arguments, as it is stated in the superclass `constructor` function. We will pass 2 arguments, according to the superclass, the first is the `name` and the second is the `username`.
+
+```ts
+class Eliad extends Person {
+	name: string = 'Eliad';
+}
+const eliad = new Eliad('notEliad', 'eliad');
+console.log(eliad); // Eliad {userName: "eliad", age: 27, name: "Eliad"}
+```
+
+We see that the console will still log `Eliad` as the name, as it was overridden by the subclass `name` property. We could solve this issue by adding a `constructor` to the subclass as well.
+
+## Inheritance and Constructors (Section 5, lecture 60)
+
+When we use `extend` on a superclass, we should also pass a `constructor`, which will also always call a `super` function, which basically calls the `constructor` function of the superclass, along with its arguments and properties. We can pass arguments inside of the `super`, like the value of the `name` property, and in the `constructor` we could pass what we expect to receive when instantiating the class. We don't have to pass `public` on the `userName` again, since it was already defined at the superclass.
+
+```ts
+class Eliad extends Person {
+	constructor(userName: string) {
+		super('Eliad', userName);
+	}
+}
+const eliad = new Eliad('eliad');
+console.log(eliad); // Eliad {userName: "eliad", age: 27, name: "Eliad"}
+```
+
+## Inheritance Wrap up (Section 5, lecture 61)
