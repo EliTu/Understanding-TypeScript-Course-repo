@@ -28,6 +28,8 @@ person.printAge();
 class Eliad extends Person {
 	constructor(userName: string) {
 		super('Eliad', userName);
+		this.age = 27.5;
+		console.log(this.type);
 	}
 }
 const eliad = new Eliad('eliad');

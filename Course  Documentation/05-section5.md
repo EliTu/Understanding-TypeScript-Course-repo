@@ -213,3 +213,32 @@ console.log(eliad); // Eliad {userName: "eliad", age: 27, name: "Eliad"}
 ```
 
 ## Inheritance Wrap up (Section 5, lecture 61)
+
+What if we wanted to change the `age` property? it is a `protected` property, meaning it is available at the subclasses as well, and so we can reach it and set it in our subclass, and we could access it easily with the `this` keyword.
+
+```ts
+class Eliad extends Person {
+	constructor(userName: string) {
+		super('Eliad', userName);
+		this.age = 27.5;
+	}
+}
+const eliad = new Eliad('eliad');
+console.log(eliad); // Eliad {userName: "eliad", age: 27.5, name: "Eliad"}
+```
+
+As for the `type` property, we cannot access it since it is `private`, and does not get inherited to subclasses, and so it is exclusive only to the `Person` class. If we will try to access it or log it, we will encounter a warning in the compiler telling us that `type` is private and could only be accessed in `Person`, but it will print out `undefined` in the console. So we can now clearly see the difference between `private` and `protected`.
+
+```ts
+class Eliad extends Person {
+	constructor(userName: string) {
+		super('Eliad', userName);
+		this.age = 27.5;
+		console.log(this.type); // ERROR (prints 'undefined')
+	}
+}
+const eliad = new Eliad('eliad');
+console.log(eliad); // Eliad {userName: "eliad", age: 27, name: "Eliad"}
+```
+
+## Getters and Setters (Section 5, lecture 62)

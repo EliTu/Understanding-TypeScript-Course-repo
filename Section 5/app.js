@@ -35,7 +35,10 @@ person.printAge();
 var Eliad = /** @class */ (function (_super) {
     __extends(Eliad, _super);
     function Eliad(userName) {
-        return _super.call(this, 'Eliad', userName) || this;
+        var _this = _super.call(this, 'Eliad', userName) || this;
+        _this.age = 27.5;
+        console.log(_this.type);
+        return _this;
     }
     return Eliad;
 }(Person));
