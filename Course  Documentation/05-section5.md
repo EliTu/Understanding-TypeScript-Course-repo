@@ -242,3 +242,78 @@ console.log(eliad); // Eliad {userName: "eliad", age: 27, name: "Eliad"}
 ```
 
 ## Getters and Setters (Section 5, lecture 62)
+
+Another feature that we have with classes are getters and setters, and TypeScript makes it very easy to work with them.
+
+We'll create a new class, and we'll create a `private` property named `_species`. Usually, we should not prefix our properties with and underscore, according to the TypeScript style guide, but we will do in this case because we don't want to access `_species` property fom outside, but we do want to have a controlled access through getters and setters, which will allow us to execute some code before setting the value.
+
+### `set` method 
+
+We want our `_species` to be limited to a string with at least 3 characters, and so we will use the `set` function to make sure that our variable is set correctly before we `return` or `mutate` its value.
+
+Basically the setter function allows to execute a code before we set a certain value to a property, and although its a method, it acts like a property. we initialize it with the `set` keyword and pass on a custom name that is accessible from the outside. We follow up with parantheses, but we do not use these parantheses to make a method call like we usually would with methods. We pass a parameter named `value` which later we will use to set the value of `_species`.
+
+```ts
+class Plant {
+	private _species: string = 'Default';
+
+	set species(value: string) {
+		value.length > 3
+			? (this._species = value)
+			: (this._species = 'Default');
+	}
+}
+```
+
+### `get` method
+
+In this method we decide what we want to `return`, and so we must `return` something. It is initialized with `get` and takes no parameters. In our case, we will `return` what we set in the `set` method.
+
+```ts
+class Plant {
+	private _species: string = 'Default';
+
+	get species() {
+		return this._species;
+	}
+
+	set species(value: string) {
+		value.length > 3
+			? (this._species = value)
+			: (this._species = 'Default');
+	}
+}
+```
+
+### Instantiating
+
+Now that we have our getter and setter, we can make a new instance of `Plant` and try to access the `_species` property. We try to access it by passing the name of the `set` method, that again - we will treat it as a property of the class.
+
+```ts
+let plant = new Plant();
+console.log(plant.species); // Default
+```
+
+If we will try to set `species` to something shorter than 3 characters, we will still get the same result, as this does not accord to the validation we set in the setter method.
+
+```ts
+let plant = new Plant();
+console.log(plant.species); // Default
+plant.species = 'AB';
+console.log(plant.species); // Default
+```
+
+If we will set `species` to something longer than 3 words, we will see that value being printed to the console.
+
+```ts
+let plant = new Plant();
+console.log(plant.species); // Default
+plant.species = 'AB';
+console.log(plant.species); // Default
+plant.species = 'Green plant';
+console.log(plant.species); // Green plant
+```
+
+This makes getters and setters a convenient way to customize the access to properties in our class, basically setting a criteria for setting properties or mutating their values.
+
+## Static Properties and Methods (Section 5, lecture 63)

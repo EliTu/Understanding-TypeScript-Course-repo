@@ -37,10 +37,35 @@ var Eliad = /** @class */ (function (_super) {
     function Eliad(userName) {
         var _this = _super.call(this, 'Eliad', userName) || this;
         _this.age = 27.5;
-        console.log(_this.type);
         return _this;
+        // console.log(this.type);
     }
     return Eliad;
 }(Person));
 var eliad = new Eliad('eliad');
 console.log(eliad); // Eliad {userName: "eliad", age: 27, name: "Eliad"}
+// * Getters & Setters
+var Plant = /** @class */ (function () {
+    function Plant() {
+        this._species = 'Default';
+    }
+    Object.defineProperty(Plant.prototype, "species", {
+        get: function () {
+            return this._species;
+        },
+        set: function (value) {
+            value.length > 3
+                ? (this._species = value)
+                : (this._species = 'Default');
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return Plant;
+}());
+var plant = new Plant();
+console.log(plant.species); // Default
+plant.species = 'AB';
+console.log(plant.species); // Default
+plant.species = 'Green plant';
+console.log(plant.species); // Green plant

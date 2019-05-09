@@ -29,8 +29,31 @@ class Eliad extends Person {
 	constructor(userName: string) {
 		super('Eliad', userName);
 		this.age = 27.5;
-		console.log(this.type);
+		// console.log(this.type);
 	}
 }
 const eliad = new Eliad('eliad');
 console.log(eliad); // Eliad {userName: "eliad", age: 27, name: "Eliad"}
+
+// * Getters & Setters
+
+class Plant {
+	private _species: string = 'Default';
+
+	get species() {
+		return this._species;
+	}
+
+	set species(value: string) {
+		value.length > 3
+			? (this._species = value)
+			: (this._species = 'Default');
+	}
+}
+
+let plant = new Plant();
+console.log(plant.species); // Default
+plant.species = 'AB';
+console.log(plant.species); // Default
+plant.species = 'Green plant';
+console.log(plant.species); // Green plant
