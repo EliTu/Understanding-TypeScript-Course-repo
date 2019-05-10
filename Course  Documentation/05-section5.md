@@ -407,3 +407,199 @@ console.log(newProject); // name: Super IT Project...
 
 ## Private Constructors & Singletons (TypeScript 2.0) (Section 5, lecture 64)
 
+We have a class which uses a `static` `private` property, which is weird since its a `static` property that cannot be accessed from outside, so what is its use? The 2nd confusing thing is that the `constructor` itself is `private`, so how can we create an instance of that class if we can't access the constructor? this is a pattern that is called a "singelton class", which is something that can be created without the `private` keyword.
+
+```ts
+class OnlyOne {
+	private static instace: OnlyOne;
+
+	private constructor(public name: string) {}
+	static getInstance() {
+		if (!OnlyOne.instace) {
+			OnlyOne.instace = new OnlyOne('The only one');
+		}
+		return OnlyOne.instace;
+	}
+}
+```
+
+This allows us to set up a class that only has one instance, and this pattern can force this kind of behavior. The way to actually instantiate this class is through the `getInstace` method we set in the class. If we will try to instantiate the class with the `new` keyword like we do usually, we will encounter compiler errors, but through calling the method, we can successfully create a single instace of this class, since the method checks for instances.
+
+```ts
+let wrong = new OnlyOne('The only one'); // Error - constructor is private!
+let right = OnlyOne.getInstance();
+```
+
+## `readonly` Properties (TypeScript 2.0) (Section 5, lecture 65)
+
+At the example from the last lecture, notice that we used a `public` keyword for the `name` property, and this means we can access it and modify it after we instantiate the `OnlyOne` class.
+
+```ts
+right.name = 'Something else!';
+```
+
+If we want to avoid having our properties exposed to being reset from outside of the `constructor` function, we can use the `readonly` keyword to make sure that the property value will not be mutateable, but we can only access it to read it only, like with a `console.log` for example.
+
+We can also achieve that by only setting a getter method for the `name` property, without also creating a setter function, this will make the property to "read-only" mode, but the `readonly` keyword is the faster and cleaner way.
+
+```ts
+class OnlyOne {
+	private static instace: OnlyOne;
+
+	private constructor(public readonly name: string) {}
+	static getInstance() {
+		if (!OnlyOne.instace) {
+			OnlyOne.instace = new OnlyOne('The only one');
+		}
+		return OnlyOne.instace;
+	}
+}
+right.name = 'Something else!'; // Error!
+```
+
+Another way to set the `readonly` keyword to a property, we can also set it outside of the `constructor`.
+
+```ts
+class OnlyOne {
+	private static instace: OnlyOne;
+	public readonly name: string;
+
+	private constructor(name: string) {
+		this.name = name;
+	}
+	static getInstance() {
+		if (!OnlyOne.instace) {
+			OnlyOne.instace = new OnlyOne('The only one');
+		}
+		return OnlyOne.instace;
+	}
+}
+```
+
+## Module Exercise 
+
+Re-write all this code using TypeScript and Class Features.
+
+```ts
+// Exercise 1 - How was your TypeScript Class?
+function Car(name) {
+    this.name = name;
+    this.acceleration = 0;
+ 
+    this.honk = function() {
+        console.log("Toooooooooot!");
+    };
+ 
+    this.accelerate = function(speed) {
+        this.acceleration = this.acceleration + speed;
+    }
+}
+var car = new Car("BMW");
+car.honk();
+console.log(car.acceleration);
+car.accelerate(10);
+console.log(car.acceleration);
+ 
+// Exercise 2 - Two objects, based on each other ...
+var baseObject = {
+    width: 0,
+    length: 0
+};
+var rectangle = Object.create(baseObject);
+rectangle.width = 5;
+rectangle.length = 2;
+rectangle.calcSize = function() {
+    return this.width * this.length;
+};
+console.log(rectangle.calcSize());
+ 
+// Exercise 3 - Make sure to compile to ES5 (set the target in tsconfig.json)
+var person = {
+    _firstName: ""
+};
+Object.defineProperty(person, "firstName", {
+    get: function () {
+        return this._firstName;
+    },
+    set: function (value) {
+        if (value.length > 3) {
+            this._firstName = value;
+        }
+        else {
+            this._firstName = "";
+        }
+    },
+    enumerable: true,
+    configurable: true
+});
+console.log(person.firstName);
+person.firstName = "Ma";
+console.log(person.firstName);
+person.firstName = "Maximilian";
+console.log(person.firstName);
+```
+
+My solution:
+
+```ts
+// Exercise 1 - How was your TypeScript Class?
+class Car {
+	name: string;
+	acceleration: number = 0;
+	constructor(name: string) {
+		this.name = name;
+	}
+
+	honk(): void {
+		console.log('Toooooooooot!');
+	}
+
+	accelerate(speed: number): void {
+		this.acceleration = this.acceleration + speed;
+	}
+}
+let car = new Car('BMW');
+car.honk();
+console.log(car.acceleration);
+car.accelerate(10);
+console.log(car.acceleration);
+
+// Exercise 2 - Two objects, based on each other ...
+abstract class BaseObject {
+	width: number = 0;
+	length: number = 0;
+}
+
+class Rectangle extends BaseObject {
+	calcSize(): number {
+		return this.width * this.length;
+	}
+}
+const rectangle = new Rectangle();
+console.log(rectangle.calcSize());
+rectangle.width = 15;
+rectangle.length = 25;
+console.log(rectangle.calcSize());
+
+// Exercise 3 - Make sure to compile to ES5 (set the target in tsconfig.json)
+class Person2 {
+	private _firstName: string = 'Default name';
+
+	get firstName() {
+		return this._firstName;
+	}
+
+	set firstName(value: string) {
+		value.length > 3
+			? (this._firstName = value)
+			: (this._firstName = 'Default name');
+	}
+}
+
+let person2 = new Person2();
+console.log(person2.firstName);
+person2.firstName = 'Ma';
+console.log(person2.firstName);
+person2.firstName = 'Maximilian';
+console.log(person2.firstName);
+```

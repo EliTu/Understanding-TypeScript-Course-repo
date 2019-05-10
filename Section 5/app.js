@@ -106,3 +106,88 @@ var newProject = new ITProject();
 console.log(newProject);
 newProject.changeName('Super IT Project');
 console.log(newProject);
+// * Private CConstructor & Singletons
+var OnlyOne = /** @class */ (function () {
+    function OnlyOne(name) {
+        this.name = name;
+    }
+    OnlyOne.getInstance = function () {
+        if (!OnlyOne.instace) {
+            OnlyOne.instace = new OnlyOne('The only one');
+        }
+        return OnlyOne.instace;
+    };
+    return OnlyOne;
+}());
+// let wrong = new OnlyOne('The only one'); // Error - constructor is private!
+var right = OnlyOne.getInstance();
+// * readonly Properties
+// Look up for the code
+// * Module exercise
+// Exercise 1 - How was your TypeScript Class?
+var Car = /** @class */ (function () {
+    function Car(name) {
+        this.acceleration = 0;
+        this.name = name;
+    }
+    Car.prototype.honk = function () {
+        console.log('Toooooooooot!');
+    };
+    Car.prototype.accelerate = function (speed) {
+        this.acceleration = this.acceleration + speed;
+    };
+    return Car;
+}());
+var car = new Car('BMW');
+car.honk();
+console.log(car.acceleration);
+car.accelerate(10);
+console.log(car.acceleration);
+// Exercise 2 - Two objects, based on each other ...
+var BaseObject = /** @class */ (function () {
+    function BaseObject() {
+        this.width = 0;
+        this.length = 0;
+    }
+    return BaseObject;
+}());
+var Rectangle = /** @class */ (function (_super) {
+    __extends(Rectangle, _super);
+    function Rectangle() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Rectangle.prototype.calcSize = function () {
+        return this.width * this.length;
+    };
+    return Rectangle;
+}(BaseObject));
+var rectangle = new Rectangle();
+console.log(rectangle.calcSize());
+rectangle.width = 15;
+rectangle.length = 25;
+console.log(rectangle.calcSize());
+// Exercise 3 - Make sure to compile to ES5 (set the target in tsconfig.json)
+var Person2 = /** @class */ (function () {
+    function Person2() {
+        this._firstName = 'Default name';
+    }
+    Object.defineProperty(Person2.prototype, "firstName", {
+        get: function () {
+            return this._firstName;
+        },
+        set: function (value) {
+            value.length > 3
+                ? (this._firstName = value)
+                : (this._firstName = 'Default name');
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return Person2;
+}());
+var person2 = new Person2();
+console.log(person2.firstName);
+person2.firstName = 'Ma';
+console.log(person2.firstName);
+person2.firstName = 'Maximilian';
+console.log(person2.firstName);

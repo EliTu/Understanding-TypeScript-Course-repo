@@ -92,3 +92,89 @@ let newProject = new ITProject();
 console.log(newProject);
 newProject.changeName('Super IT Project');
 console.log(newProject);
+
+// * Private CConstructor & Singletons
+
+class OnlyOne {
+	private static instace: OnlyOne;
+	public readonly name: string;
+
+	private constructor(name: string) {
+		this.name = name;
+	}
+	static getInstance() {
+		if (!OnlyOne.instace) {
+			OnlyOne.instace = new OnlyOne('The only one');
+		}
+		return OnlyOne.instace;
+	}
+}
+// let wrong = new OnlyOne('The only one'); // Error - constructor is private!
+let right = OnlyOne.getInstance();
+
+// * readonly Properties
+
+// Look up for the code
+
+// * Module exercise
+
+// Exercise 1 - How was your TypeScript Class?
+class Car {
+	name: string;
+	acceleration: number = 0;
+	constructor(name: string) {
+		this.name = name;
+	}
+
+	honk(): void {
+		console.log('Toooooooooot!');
+	}
+
+	accelerate(speed: number): void {
+		this.acceleration = this.acceleration + speed;
+	}
+}
+let car = new Car('BMW');
+car.honk();
+console.log(car.acceleration);
+car.accelerate(10);
+console.log(car.acceleration);
+
+// Exercise 2 - Two objects, based on each other ...
+abstract class BaseObject {
+	width: number = 0;
+	length: number = 0;
+}
+
+class Rectangle extends BaseObject {
+	calcSize(): number {
+		return this.width * this.length;
+	}
+}
+const rectangle = new Rectangle();
+console.log(rectangle.calcSize());
+rectangle.width = 15;
+rectangle.length = 25;
+console.log(rectangle.calcSize());
+
+// Exercise 3 - Make sure to compile to ES5 (set the target in tsconfig.json)
+class Person2 {
+	private _firstName: string = 'Default name';
+
+	get firstName() {
+		return this._firstName;
+	}
+
+	set firstName(value: string) {
+		value.length > 3
+			? (this._firstName = value)
+			: (this._firstName = 'Default name');
+	}
+}
+
+let person2 = new Person2();
+console.log(person2.firstName);
+person2.firstName = 'Ma';
+console.log(person2.firstName);
+person2.firstName = 'Maximilian';
+console.log(person2.firstName);
