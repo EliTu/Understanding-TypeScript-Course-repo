@@ -316,4 +316,94 @@ console.log(plant.species); // Green plant
 
 This makes getters and setters a convenient way to customize the access to properties in our class, basically setting a criteria for setting properties or mutating their values.
 
-## Static Properties and Methods (Section 5, lecture 63)
+## `static` Properties and Methods (Section 5, lecture 63)
+
+Using the `static` keyword, we can expose specific properties or methods outside the class, without even needing to instantiate it first. We will create a class called `Helpers`, which will bundle some helper properties or methods that we can use in our app. Let's say we want to have the access to the value of PI.
+
+```ts
+class Helpers {
+	PI: number = Math.PI;
+}
+```
+
+By default, our only way to access  the `PI` property is by first instantiating the `Helpers` class, even if we try to prefix it with `Helpers.PI`, by default it won't work. But if we will set the `PI` property as `static`, we will be able to do that.
+
+```ts
+class Helpers {
+	static PI: number = Math.PI;
+}
+console.log(Helpers.PI * 2); // 6.283...
+```
+
+This is a good use case for the `static` keyword: whenever we have a "Helper" class that just bundles up some helping methods or properties that I would like to freely use throughout the app.
+
+This could also work with methods of course.
+
+```ts
+class Helpers {
+	static PI: number = Math.PI;
+	static calcCircumference(diameter: number): number {
+		return this.PI * diameter;
+	}
+}
+console.log(2 * Helpers.PI); // 6.283...
+console.log(Helpers.calcCircumference(8)); // 25.132...
+```
+
+## Abstract Classes (Section 8, lecture 64)
+
+Abstract classes, which are marked with the `abstract` keyword, are classes that cannot be instantiated directly, but we have to inherit from them constantly, they are there just to be inherited from. The reason for them is if we have classes that are never meant to be instantiated, but are there only to provide some basic set up for other specialized classes that will be instantiated.
+
+Let's say we have an `abstract` class named `Project`, it has few properties and methods. 
+
+```ts
+abstract class Project {
+	projectName: string = 'Default';
+	budget: number = 1000;
+
+	calcBudget() {
+		return this.budget * 2;
+	}
+}
+```
+
+### `abstract` methods
+
+We can also create `abstract` methods, using the `abstract` keyword ahead of the method's name, which can also take argument, but it does not have curly braces, meaning it does not hold a function body. We only define how the function should look like, but we're not implementing any logic. Once we extend the `abstract` class we have to initiate the `abstract` function too, meaning we will have to write the logic in the subclass. the `calcBudget` method will not have to be rewritten at the subclass.
+
+```ts
+abstract class Project {
+	projectName: string = 'Default';
+	budget: number = 1000;
+
+	calcBudget() {
+		return this.budget * 2;
+	}
+
+	abstract changeName(name: string): void;
+}
+```
+
+### The inheriting subclass
+
+We can then create a more specialized class that `extends` the `abstract` class we initiated earlier. The moment we create this class, we get an IDE error telling us to set the `changeName` method, and the same error will occur if we will try to compile the TypeScript code. We will implement the `changeName` method by giving it the logic in the curly braces.
+
+```ts
+class ITProject extends Project {
+	changeName(name: string): void {
+		this.projectName = name;
+	}
+}
+```
+
+Now we can go ahead and instantiate the `ITProject` class, since this is the class that can be instantiated. 
+
+```ts
+let newProject = new ITProject();
+console.log(newProject); // name: Default...
+newProject.changeName('Super IT Project');
+console.log(newProject); // name: Super IT Project...
+```
+
+## Private Constructors & Singletons (TypeScript 2.0) (Section 5, lecture 64)
+

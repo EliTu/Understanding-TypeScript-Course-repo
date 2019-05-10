@@ -57,3 +57,38 @@ plant.species = 'AB';
 console.log(plant.species); // Default
 plant.species = 'Green plant';
 console.log(plant.species); // Green plant
+
+// * Static properties and methods
+
+class Helpers {
+	static PI: number = Math.PI;
+	static calcCircumference(diameter: number): number {
+		return this.PI * diameter;
+	}
+}
+console.log(2 * Helpers.PI);
+console.log(Helpers.calcCircumference(8));
+
+// * Abstract classes
+
+abstract class Project {
+	projectName: string = 'Default';
+	budget: number = 1000;
+
+	calcBudget() {
+		return this.budget * 2;
+	}
+
+	abstract changeName(name: string): void;
+}
+
+class ITProject extends Project {
+	changeName(name: string): void {
+		this.projectName = name;
+	}
+}
+
+let newProject = new ITProject();
+console.log(newProject);
+newProject.changeName('Super IT Project');
+console.log(newProject);
