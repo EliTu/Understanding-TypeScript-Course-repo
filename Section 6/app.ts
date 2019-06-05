@@ -1,5 +1,5 @@
-///<reference path="circleMath.ts" />
-///<reference path="rectangleMath.ts" />
-// Namespaces (Lecture 71)
-console.log(MyMath.calculateRectangle(10, 20));
-console.log(MyMath.calculate(3));
+import { PI, calculateCircumference } from './Math/circle';
+import {} from './Math/rectangle';
+console.log(PI);
+console.log(calculateCircumference(5));
+console.log();

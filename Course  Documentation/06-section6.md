@@ -183,5 +183,38 @@ We can import NameSpaces in a more structured and comfortable way using the foll
 
 Next we run `tsc app.ts --outFile app.js` command in the terminal, and the result would be that all the NameSpace files we specified in the `reference`, as well as app.ts will be exported to app.js.
 
-## More on NameSpaces (Section 6, lecture 74)
+## Modules (Section 6, lecture 75)
 
+We can also use the ES6 modules syntax on .ts files to export/import modules, variables, functions from one file to another. We will create a separate folder named `Modules` and there we create the same Math files we had with the NameSpaces, but this time we will use the ES6 modules syntax.
+
+```ts
+export const PI = 3.14;
+export function calculateCircumference(diameter: number) {
+	return diameter & PI;
+}
+```
+
+```ts
+export function calculateRectangle(width: number, length: number) {
+	return width * length;
+}
+```
+
+```ts
+import { PI, calculateCircumference } from './circleMath';
+import {} from './rectangleMath';
+console.log(PI);
+console.log(calculateCircumference);
+```
+
+When we try to compile the code, we encounter an error though.
+
+## Loading Modules (Section 6, lecture 78)
+
+We will need a Module Loader in order for TypeScript be able to load modules since it does not natively recognize modules. One such loader that we're going to use is SystemJS, which we will install as a dependency.
+
+Then we would need to go to index.html and provide SystemJS as our `src` value.
+
+```js
+<script src="../node_modules/systemjs/dist/system.js" />
+```

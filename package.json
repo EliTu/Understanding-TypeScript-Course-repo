@@ -4,11 +4,15 @@
   "description": "",
   "main": "index.html",
   "scripts": {
-    "start": "lite-server"
+    "start": "lite-server",
+    "require": "tsc app.ts --outFile  app.js --module amd"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "lite-server": "^2.4.0"
+    "lite-server": "^2.5.3"
+  },
+  "dependencies": {
+    "requirejs": "^2.3.6"
   }
 }

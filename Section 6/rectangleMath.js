@@ -1,5 +1,5 @@
 "use strict";
-// Namespace files  (lecture 72)
+// Namespace files (lecture 72)
 var MyMath;
 (function (MyMath) {
     function calculateRectangle(width, length) {
