@@ -1,4 +1,3 @@
-// Namespace files (lecture 72)
 namespace MyMath {
 	const PI = 3.14;
 

@@ -8,11 +8,11 @@ Namespaces are a way for us to group pieces of code under a single name, making 
 const PI = 3.14;
 
 function calculate(diameter: number) {
-		return diameter * PI;
-	}
+	return diameter * PI;
+}
 function calculateRectangle(width: number, length: number) {
-		return width * length;
-	}
+	return width * length;
+}
 ```
 
 All of these can be grouped together under some mathematical label. For this we would like to create a Namespace which will allow us to group these together, and to avoid placing this functions into the global scope. Without it, it could get messy once the functions we input will start to get more and more, then we will also have to manage not to duplicate names, override variables etc.
@@ -78,16 +78,16 @@ Looking at the compiled code at the `app.js` file, we could see that the Namespa
 
 ```js
 var MyMath;
-(function (MyMath) {
-    var PI = 3.14;
-    function calculate(diameter) {
-        return diameter * PI;
-    }
-    MyMath.calculate = calculate;
-    function calculateRectangle(width, length) {
-        return width * length;
-    }
-    MyMath.calculateRectangle = calculateRectangle;
+(function(MyMath) {
+	var PI = 3.14;
+	function calculate(diameter) {
+		return diameter * PI;
+	}
+	MyMath.calculate = calculate;
+	function calculateRectangle(width, length) {
+		return width * length;
+	}
+	MyMath.calculateRectangle = calculateRectangle;
 })(MyMath || (MyMath = {}));
 ```
 
@@ -150,20 +150,20 @@ Now if we reload the code, we could see that the functions are being accessed ag
 
 ```js
 var MyMath;
-(function (MyMath) {
-    var PI = 3.14;
-    function calculate(diameter) {
-        return diameter * PI;
-    }
-    MyMath.calculate = calculate;
+(function(MyMath) {
+	var PI = 3.14;
+	function calculate(diameter) {
+		return diameter * PI;
+	}
+	MyMath.calculate = calculate;
 })(MyMath || (MyMath = {}));
 
 var MyMath;
-(function (MyMath) {
-    function calculateRectangle(width, length) {
-        return width * length;
-    }
-    MyMath.calculateRectangle = calculateRectangle;
+(function(MyMath) {
+	function calculateRectangle(width, length) {
+		return width * length;
+	}
+	MyMath.calculateRectangle = calculateRectangle;
 })(MyMath || (MyMath = {}));
 
 console.log(MyMath.calculateRectangle(10, 20));
@@ -173,4 +173,15 @@ console.log(MyMath.calculate(3));
 This is an improvement from manually passing `.js` files into the `index.html`, but still there are downsides - we need to list all the files we want to bundle together into the terminal, and we could improve that too.
 
 ## Namespace Imports (Section 6, lecture 73)
+
+We can import NameSpaces in a more structured and comfortable way using the following syntax inside the app.ts file:
+
+```ts
+///<reference path="rectangleMath.ts" />
+///<reference path="circleMath.ts" />
+```
+
+Next we run `tsc app.ts --outFile app.js` command in the terminal, and the result would be that all the NameSpace files we specified in the `reference`, as well as app.ts will be exported to app.js.
+
+## More on NameSpaces (Section 6, lecture 74)
 
